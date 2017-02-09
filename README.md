@@ -41,7 +41,7 @@ Tar up and extract each relevant data directory
 * Confluence
   * ./confluence-shell.sh
   * cd /opt/atlassian/confluence/data
-  * tar czf /data_confluence.tar.gz
+  * tar czf /data_confluence.tar.gz .
   * exit
   * docker cp _image-id_:/data_confluence.tar.gz ./data_confluance.tar.gz
 
