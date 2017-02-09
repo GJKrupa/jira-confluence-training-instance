@@ -37,13 +37,13 @@ Tar up and extract each relevant data directory
   * cd /opt/atlassian/jira/data
   * tar czf /data_jira.tar.gz .
   * exit
-  * docker cp <image-id>:/data_jira.tar.gz ./data_jira.tar.gz
+  * docker cp _image-id_:/data_jira.tar.gz ./data_jira.tar.gz
 * Confluence
   * ./confluence-shell.sh
   * cd /opt/atlassian/confluence/data
   * tar czf /data_confluence.tar.gz
   * exit
-  * docker cp <image-id>:/data_confluence.tar.gz ./data_confluance.tar.gz
+  * docker cp _image-id_:/data_confluence.tar.gz ./data_confluance.tar.gz
 
 Shut down the docker containers.  Then build and re-run them.  They should now be running
 with the provisioned data.
