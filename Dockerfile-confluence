@@ -1,0 +1,19 @@
+FROM ubuntu:latest
+maintainer Gerard Krupa <gerard.krupa@capgemini.com>
+
+RUN mkdir -p /opt/atlassian/confluence/install
+RUN mkdir -p /opt/atlassian/confluence/data
+RUN apt-get update && apt-get install -q -y curl bash gzip
+RUN curl -Lks \
+	https://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-5.10.0-x64.bin \
+	-o /opt/atlassian/confluence/confluence.bin
+RUN chmod a+x /opt/atlassian/confluence/confluence.bin
+COPY response.varfile.confluence /opt/atlassian/confluence/response.varfile.confluence
+WORKDIR /opt/atlassian/confluence
+RUN ./confluence.bin -q -varfile /opt/atlassian/confluence/response.varfile.confluence
+
+ADD data_confluence.tar.gz /opt/atlassian/confluence/data/
+RUN chown -R confluence:confluence /opt/atlassian/confluence/data
+
+WORKDIR /opt/atlassian/confluence/install/bin
+CMD ["./start-confluence.sh", "-fg"]

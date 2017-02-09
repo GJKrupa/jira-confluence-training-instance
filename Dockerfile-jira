@@ -1,0 +1,19 @@
+FROM ubuntu:latest
+maintainer Gerard Krupa <gerard.krupa@capgemini.com>
+
+RUN mkdir -p /opt/atlassian/jira/install
+RUN mkdir -p /opt/atlassian/jira/data
+RUN apt-get update && apt-get install -q -y curl bash gzip
+RUN curl -Lks \
+	https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-7.1.7-jira-7.1.7-x64.bin \
+	-o /opt/atlassian/jira/jira.bin
+RUN chmod a+x /opt/atlassian/jira/jira.bin
+COPY response.varfile.jira /opt/atlassian/jira/response.varfile.jira
+WORKDIR /opt/atlassian/jira
+RUN ./jira.bin -q -varfile /opt/atlassian/jira/response.varfile.jira
+
+ADD data_jira.tar.gz /opt/atlassian/jira/data/
+RUN chown -R jira:jira /opt/atlassian/jira/data
+
+WORKDIR /opt/atlassian/jira/install/bin
+CMD ["./start-jira.sh", "-fg"]

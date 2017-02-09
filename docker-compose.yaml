@@ -1,0 +1,21 @@
+version: '2'
+services:
+  jira:
+    image: uxian/jira
+    ports:
+      - "8080:8080"
+    networks:
+      - atlassian
+
+  confluence:
+    image: uxian/confluence
+    ports:
+      - "8090:8090"
+    links:
+      - "jira:jira"
+    networks:
+      - atlassian
+
+networks:
+  atlassian:
+    driver: bridge
